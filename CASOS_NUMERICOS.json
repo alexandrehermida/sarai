@@ -1,0 +1,267 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Casos de cálculo sintéticos para pruebas. No son resultados observados reales ni código de cálculo.",
+  "priority": [
+    {
+      "id": "P01",
+      "inputs": {
+        "H": 4,
+        "R": 3,
+        "T": 2,
+        "E": 5
+      },
+      "weights": {
+        "H": 0.4,
+        "R": 0.25,
+        "T": 0.2,
+        "E": 0.15
+      },
+      "expected_score": 70,
+      "expected_band": "HIGH"
+    },
+    {
+      "id": "P02",
+      "inputs": {
+        "H": 0,
+        "R": 0,
+        "T": 0,
+        "E": 0
+      },
+      "expected_score": 0,
+      "expected_band": "LOW"
+    },
+    {
+      "id": "P03",
+      "inputs": {
+        "H": 5,
+        "R": 5,
+        "T": 5,
+        "E": 5
+      },
+      "expected_score": 100,
+      "expected_band": "VERY_HIGH"
+    },
+    {
+      "id": "P04",
+      "inputs": {
+        "H": 4,
+        "R": null,
+        "T": 2,
+        "E": 5
+      },
+      "expected_score": null,
+      "reason": "MISSING_DIMENSION"
+    },
+    {
+      "id": "P05",
+      "inputs": {
+        "H": 6,
+        "R": 3,
+        "T": 2,
+        "E": 5
+      },
+      "expected_error": "OUT_OF_RANGE"
+    },
+    {
+      "id": "P06",
+      "inputs": {
+        "H": 4,
+        "R": 3,
+        "T": 2,
+        "E": 5
+      },
+      "weights": {
+        "H": 0.4,
+        "R": 0.25,
+        "T": 0.2,
+        "E": 0.2
+      },
+      "expected_error": "INVALID_WEIGHT_SUM"
+    }
+  ],
+  "before_after": [
+    {
+      "id": "BA01",
+      "before": 100,
+      "after": 70,
+      "expected_absolute_change": -30,
+      "expected_relative_change_pct": -30,
+      "expected_reduction_pct": 30
+    },
+    {
+      "id": "BA02",
+      "before": 100,
+      "after": 120,
+      "expected_absolute_change": 20,
+      "expected_relative_change_pct": 20,
+      "expected_reduction_pct": -20
+    },
+    {
+      "id": "BA03",
+      "before": 0,
+      "after": 5,
+      "expected_absolute_change": 5,
+      "expected_relative_change_pct": null,
+      "expected_reduction_pct": null,
+      "reason": "ZERO_BASELINE"
+    },
+    {
+      "id": "BA04",
+      "before": null,
+      "after": 5,
+      "expected_absolute_change": null,
+      "expected_relative_change_pct": null,
+      "expected_reduction_pct": null,
+      "reason": "MISSING_BASELINE"
+    }
+  ],
+  "rates": [
+    {
+      "id": "R01",
+      "count": 25,
+      "exposure": 10000,
+      "scale": 1000,
+      "expected_rate": 2.5
+    },
+    {
+      "id": "R02",
+      "count": 25,
+      "exposure": 0,
+      "scale": 1000,
+      "expected_rate": null,
+      "reason": "NONPOSITIVE_EXPOSURE"
+    },
+    {
+      "id": "R03",
+      "count": 25,
+      "exposure": null,
+      "scale": 1000,
+      "expected_rate": null,
+      "reason": "MISSING_EXPOSURE"
+    }
+  ],
+  "percentages": [
+    {
+      "id": "PP01",
+      "before_proportion": 0.2,
+      "after_proportion": 0.15,
+      "expected_percentage_point_change": -5,
+      "expected_relative_change_pct": -25
+    }
+  ],
+  "difference_in_differences": [
+    {
+      "id": "D01",
+      "intervention_before": 100,
+      "intervention_after": 70,
+      "comparison_before": 80,
+      "comparison_after": 72,
+      "equal_windows": true,
+      "same_unit": true,
+      "expected_intervention_change": -30,
+      "expected_comparison_change": -8,
+      "expected_did": -22,
+      "causal_claim_allowed_by_calculation_alone": false
+    },
+    {
+      "id": "D02",
+      "intervention_before": 100,
+      "intervention_after": 70,
+      "comparison_before": null,
+      "comparison_after": null,
+      "expected_did": null,
+      "reason": "MISSING_COMPARISON"
+    },
+    {
+      "id": "D03",
+      "intervention_before": 100,
+      "intervention_after": 70,
+      "comparison_before": 80,
+      "comparison_after": 72,
+      "equal_windows": false,
+      "normalized": false,
+      "expected_did": null,
+      "reason": "INCOMPARABLE_WINDOWS"
+    }
+  ],
+  "capacity": [
+    {
+      "id": "C01",
+      "available_hours": 160,
+      "fixed_hours": 100,
+      "absence_hours": 20,
+      "approved_load_hours": 50,
+      "expected_plannable_hours": 40,
+      "expected_excess_hours": 10,
+      "expected_utilization_pct": 125
+    },
+    {
+      "id": "C02",
+      "available_hours": 100,
+      "fixed_hours": 100,
+      "absence_hours": 0,
+      "approved_load_hours": 10,
+      "expected_plannable_hours": 0,
+      "expected_excess_hours": 10,
+      "expected_utilization_pct": null,
+      "expected_overload": true
+    },
+    {
+      "id": "C03",
+      "available_hours": null,
+      "fixed_hours": 20,
+      "absence_hours": 0,
+      "approved_load_hours": 10,
+      "expected_plannable_hours": null,
+      "expected_utilization_pct": null,
+      "reason": "MISSING_CAPACITY"
+    },
+    {
+      "id": "C04",
+      "available_hours": 20,
+      "fixed_hours": 30,
+      "absence_hours": 0,
+      "expected_error": "NEGATIVE_PLANNABLE_CAPACITY"
+    }
+  ],
+  "cost_allocation": [
+    {
+      "id": "CA01",
+      "action_cost_eur": "1000.00",
+      "shares": {
+        "OBJ_A": "0.60",
+        "OBJ_B": "0.40"
+      },
+      "expected_objective_costs": {
+        "OBJ_A": "600.00",
+        "OBJ_B": "400.00"
+      },
+      "expected_municipal_total": "1000.00"
+    },
+    {
+      "id": "CA02",
+      "action_cost_eur": "1000.00",
+      "shares": {
+        "OBJ_A": "0.60",
+        "OBJ_B": "0.30"
+      },
+      "expected_error": "INVALID_ALLOCATION_SUM"
+    }
+  ],
+  "publication_suppression": [
+    {
+      "id": "S01",
+      "counts": {
+        "cell_A": 2,
+        "cell_B": 8,
+        "total": 10
+      },
+      "positive_cell_threshold": 5,
+      "must_suppress": [
+        "cell_A"
+      ],
+      "additional_suppression_required": true,
+      "note": "No basta ocultar cell_A: cell_B y total juntos permitirían inferir 2. No se exige una única elección de supresión complementaria."
+    }
+  ]
+}
